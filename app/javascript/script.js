@@ -1,3 +1,4 @@
+// おみくじ
 function check() {
 
   const btn = document.getElementById('btn');
@@ -28,6 +29,49 @@ window.addEventListener("load", check);
 // 特定のクラスだけ取り除きたいなら、クラスを指定してremoveする
 function clearClass(element) {
   element.classList.remove(...element.classList)
+
 }
 
+// モーダルウィンドウ
+// function checkd()  {
+//   const open = document.getElementById('open');
+//   const close = document.getElementById('close');
+//   const modal = document.getElementById('modal');
+//   const mask = document.getElementById('mask');
 
+//   open.addEventListener('click', () => {
+//     modal.classList.remove('hidden');
+//     mask.classList.remove('hidden');
+//   });
+
+//   close.addEventListener('click', () => {
+//     modal.classList.add('hidden');
+//     mask.classList.add('hidden');
+//   });
+//   mask.addEventListener('click', () => {
+//     close.click();
+//   });
+// }
+// window.addEventListener("load", checkd);
+
+
+window.addEventListener('load', (event) => {
+  const open = document.getElementById('open');
+  const close = document.getElementById('close');
+  const modal = document.getElementById('modal');
+  const mask = document.getElementById('mask');
+
+  open.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    mask.classList.remove('hidden');
+  });
+  close.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    mask.classList.add('hidden');
+  });
+  mask.addEventListener('click', () => {
+    close.click();
+  });
+});
+
+// ハンバーガーメニュー

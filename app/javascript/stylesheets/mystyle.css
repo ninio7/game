@@ -1,3 +1,4 @@
+/*おみくじ*/
 #btn {
   width: 200px;
   height: 200px;
@@ -17,24 +18,70 @@
   opacity: 0.9;
 }
 
- #btn:active{
-      box-shadow: 0 5px 0 #d1483e;
-      margin-top: 35px;
-    }
+#btn:active{
+  box-shadow: 0 5px 0 #d1483e;
+  margin-top: 35px;
+}
 
-    #btn.daikiti{
-      background:red;
-      border-radius :50%;
-    }
+#btn.daikiti{
+  background:red;
+  border-radius :50%;
+}
 
-    #btn.chukiti{
-      background:#6666ff;
-      border-radius :50%;
-      box-shadow: 0 10px 0 #0066CC;
-    }
+#btn.chukiti{
+  background:#6666ff;
+  border-radius :50%;
+  box-shadow: 0 10px 0 #0066CC;
+}
 
-    #btn.kyo{
-      background:#336633;
-      box-shadow: 0 10px 0 #006600;
-      border-radius :50%;
-    }
+#btn.kyo{
+  background:#336633;
+  box-shadow: 0 10px 0 #006600;
+  border-radius :50%;
+}
+
+/*モーダルウィンドウ*/
+#open, #close {
+  cursor: pointer;
+  width: 200px;
+  border-style: solid;
+  border-color: #ccc;
+  border-radius: 4px;
+  text-align: center;
+  padding: 12px 0;
+  margin: 16px auto 0;
+}
+
+#mask{
+  background: rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1; /*要素の重なり順を操作*/
+}
+
+#modal{
+  background: #fff;
+  width: 300px;
+  padding: 20px 0;
+  border-radius: 4px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transition: transform 0.4s;
+  z-index: 2; 
+}
+
+#mask.hidden{
+  display: none;
+}
+
+#modal.hidden{
+  transform: translate(0, -600px);
+}
+
+/*ハンバーガーメニュー*/
