@@ -11,6 +11,56 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+    <div class= "logo">
+      <h1>LOGO</h1>
+    </div>
+    <div class="sp-menu">
+      <span id="menu-open"><i class="fas fa-bars"></i></span>
+    </div>
+    </header>
+    <div class="overlay">
+      <span id="menu-close"><i class="fas fa-times"></i></span>
+      <nav>
+        <ul>
+          <li><a href="#">Menu</a></li>
+          <li><a href="#">Menu</a></li>
+          <li><a href="#">Menu</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- <div id="sp-menu">-->
+    <!--  <h2>MENU</h2>-->
+    <!--  <ul>-->
+    <!--    <li><a href="#">MENU1</a></li>-->
+    <!--    <li><a href="#">MENU2</a></li>-->
+    <!--    <li><a href="#">MENU3</a></li>-->
+    <!--    <li><a href="#">MENU4</a></li>-->
+    <!--    <li><a href="#">MENU5</a></li>-->
+    <!--  </ul>-->
+    <!--</div>-->
+
+    <!--<div id="hm-icon">-->
+
+    <!--  <a class="menu-trigger" href="#">-->
+    <!--    <span></span>-->
+    <!--    <span></span>-->
+    <!--    <span></span>-->
+    <!--  </a>-->
+    <!--</div>-->
+
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <!--<div class="box"></div>-->
+    <main>
+      <%= yield %>
+    </main>
+    
   </body>
 </html>
