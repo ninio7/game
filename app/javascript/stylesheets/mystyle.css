@@ -131,7 +131,7 @@ main {
 
 #menu-close {
   position: absolute;
-  top: 16px;
+  top: 8px;
   right: 16px;
   font-size: 32px;
   cursor: pointer;
@@ -167,8 +167,6 @@ main {
 .overlay.show li:nth-child(3){
   transition-delay: .3s;
 }
-
-
 
 
 /*#hm-icon {*/
@@ -208,7 +206,6 @@ main {
 /*.menu-trigger.active span:nth-child(1) {*/
 /*  -webkit-transform: translateY(20px) rotate(-45deg);*/
 /*  transform: translateY(20px) rotate(-45deg);*/
-/*  background-color: #fff;*/
 /*}*/
 /*.menu-trigger.active span:nth-child(2) {*/
 /*  opacity: 0;*/
@@ -216,7 +213,6 @@ main {
 /*.menu-trigger.active span:nth-child(3) {*/
 /*  -webkit-transform: translateY(-20px) rotate(45deg);*/
 /*  transform: translateY(-20px) rotate(45deg);*/
-/*  background-color: #fff;*/
 /*}*/
 /* ------------------------ */
 /* ------ spメニュー ------ */
@@ -225,8 +221,8 @@ main {
 /*  position: fixed;*/
 /*  top: 0;*/
 /*  left: 0;*/
-/*  background: #000;*/
-/*  color: #fff;*/
+/*  background: rgba(255, 255, 255, 0.95);*/
+/*  color: #000;*/
 /*  width: 100%;*/
 /*  min-height: 100%;*/
 /*  display: none;*/
@@ -243,7 +239,76 @@ main {
 /*  margin-bottom: 30px;*/
 /*}*/
 /*#sp-menu a {*/
-/*  color: #fff;*/
+/*  color: #000;*/
 /*  text-decoration: none;*/
 /*  font-weight: bold;*/
 /*}*/
+
+
+
+dt {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+dt::before {
+  content: 'Q. ';
+}
+
+dt::after {
+  content: '+';
+  position: absolute;
+
+  right: 16px;
+}
+
+dl > div.appear dt::after {
+  transform: rotate(45deg);
+}
+
+dd {
+  display: none;
+}
+
+dd::before {
+  content: 'A. ';
+}
+
+dl > div.appear dd {
+  display: block;
+}
+
+
+ul {
+  list-style: none;
+}
+
+.accordion-item {
+  position: relative;
+  width: 400px;
+  border-bottom:1px solid #ccc;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.accordion-item:hover {
+  background-color: #E6E6E6;
+}
+
+.question {
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.accordion-item span {
+  position: absolute;
+  right: 5px;
+  color: #B3B3B3;
+  font-size: 20px;
+}
+
+.answer {
+  display: none;
+  font-size: 12px;
+}
