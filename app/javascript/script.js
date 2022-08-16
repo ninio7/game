@@ -30,28 +30,6 @@ function clearClass(element) {
 }
 
 // モーダルウィンドウ
-// function checkd()  {
-//   const open = document.getElementById('open');
-//   const close = document.getElementById('close');
-//   const modal = document.getElementById('modal');
-//   const mask = document.getElementById('mask');
-
-//   open.addEventListener('click', () => {
-//     modal.classList.remove('hidden');
-//     mask.classList.remove('hidden');
-//   });
-
-//   close.addEventListener('click', () => {
-//     modal.classList.add('hidden');
-//     mask.classList.add('hidden');
-//   });
-//   mask.addEventListener('click', () => {
-//     close.click();
-//   });
-// }
-// window.addEventListener("load", checkd);
-
-
 window.addEventListener('load', (event) => {
   const open = document.getElementById('open');
   const close = document.getElementById('close');
@@ -146,7 +124,7 @@ $(function() {
   });
 });
 
-// タブメニュー
+// タブメニュー part1
 
 window.addEventListener('load', (event) =>{
   const menuItems = document.querySelectorAll('.tabmenu li a');   //メニュー項目の取得
@@ -159,13 +137,32 @@ window.addEventListener('load', (event) =>{
         item.classList.remove('active');
       })
       clickedItem.classList.add('active');
-      
+
       contents.forEach(content => {
         content.classList.remove('active');
       });
-      
+
       //クリックされたメニュー項目に対応するcontentの要素を取得
-      document.getElementById(clickedItem.dataset.id).classList.add('active'); 
+      document.getElementById(clickedItem.dataset.id).classList.add('active');
+    });
+  });
+});
+
+// タブメニュー part2
+$(document).on('turbolinks:load', function() {　//Turbolinksを無効化する処理(リロード無しで動作する)
+  $(function() {
+    // .tabがクリックされたときを指定
+    $('.tab').click(function(){
+      // 今ある.tab-activeを削除
+      $('.tab-active').removeClass('tab-active');
+      // クリックされた.tabに.tab-activeを追加
+      $(this).addClass('tab-active');
+      // 今ある.box-showを削除
+      $('.box-show').removeClass('box-show');
+      // indexに.tabのindex番号を代入
+      const index = $(this).index();
+      // .tabboxとindexの番号が同じ要素に.box-showを追加
+      $('.tabbox').eq(index).addClass('box-show');
     });
   });
 });
