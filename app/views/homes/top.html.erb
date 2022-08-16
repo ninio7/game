@@ -1,60 +1,71 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 mt-5">
-      <h1 class="border-bottom">FAQ</h1>
-      <div>
-        <dl>
-          <dt>質問</dt>
-          <dd>回答</dd>
-        </dl>
-      </div>
-      <div>
-        <dl>
-          <dt>質問</dt>
-          <dd>回答</dd>
-        </dl>
-      </div>
-      <div>
-        <dl>
-          <dt>質問</dt>
-          <dd>回答</dd>
-        </dl>
-      </div>
+    <div class="col mt-5">
+      <ul class="tabmenu">
+        <li><a href="#" class="active" data-id="about">サイトの概要</a></li>
+        <li><a href="#" data-id="service">サービスの内容</a></li>
+        <li><a href="#" data-id="contact">お問い合わせ</a></li>
+      </ul>
 
-      <ul id="accordion mdl-list">
-  <li class="accordion-item mdl-list__item"><span class="pb-5">+</span>
-     <h3 class="question">職業はなんですか？</h3>
-     <div class="answer">
-        <p>システムエンジニアです。いわゆるSEです。</p>
-     </div>
-  </li>
-  <li class="accordion-item"><span>+</span>
-     <h3 class="question mdl-list__item">なんのスポーツが好きですか？</h3>
-
-     <div class="answer">
-	<p>野球</p>
-     </div>
-  </li>
-  <li class="accordion-item mdl-list__item"><span>+</span>
-     <h3 class="question">携帯は何使ってますか？</h3>
-
-     <div class="answer">
-        <p>iPhone</p>
-     </div>
-  </li>
-</ul>
-
-
-
-
-
-      <div id="open">詳細を見る</div>
-      <div id="mask" class="hidden"></div>
-      <section id="modal" class="hidden">
-        <p class="p-3">Startボタンを押してください</p>
-        <div id="close">閉じる</div>
+      <section class="content active" id="about">
+        aaa
+      </section>
+      <section class="content" id="service">
+        bbb
+      </section>
+      <section class="content" id="contact">
+        ccc
       </section>
     </div>
+
+
+
+    <div class="col-12 mt-5">
+      <h1 class="border-bottom">FAQ</h1>
+      <dl>
+        <div class="border-bottom">
+          <dt class="my-3">質問</dt>
+          <dd>回答</dd>
+        </div>
+        <div class="border-bottom">
+          <dt class="my-3">質問</dt>
+          <dd>回答</dd>
+        </div>
+        <div class="border-bottom">
+          <dt class="my-3">質問</dt>
+          <dd>回答</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="col-12">
+      <li class="accordion-item"><span class="mt-2">+</span>
+        <h6 class="py-3">職業はなんですか？</h6>
+        <div class="answer">
+          <p>システムエンジニアです。</p>
+        </div>
+      </li>
+      <li class="accordion-item"><span class="mt-2">+</span>
+        <h6 class="py-3">なんのスポーツが好きですか？</h6>
+        <div class="answer">
+	         <p>野球</p>
+        </div>
+      </li>
+      <li class="accordion-item"><span class="mt-2">+</span>
+        <h6 class="py-3">携帯は何使ってますか？</h6>
+         <div class="answer">
+	          <p>iPhone</p>
+         </div>
+      </li>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div id="open">詳細を見る</div>
+    <div id="mask" class="hidden"></div>
+    <section id="modal" class="hidden">
+      <p class="p-3">詳細です</p>
+      <div id="close">閉じる</div>
+    </section>
   </div>
 </div>
 

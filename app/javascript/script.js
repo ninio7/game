@@ -1,6 +1,5 @@
 // おみくじ
 function check() {
-
   const btn = document.getElementById('btn');
   // btn.addEventListener('click', () => {
   //   const results = ['大吉', '中吉', '凶']
@@ -20,7 +19,6 @@ function check() {
       btn.textContent = '凶';
       btn.classList.add('kyo');
     }
-
   });
 }
 window.addEventListener("load", check);
@@ -29,7 +27,6 @@ window.addEventListener("load", check);
 // 特定のクラスだけ取り除きたいなら、クラスを指定してremoveする
 function clearClass(element) {
   element.classList.remove(...element.classList)
-
 }
 
 // モーダルウィンドウ
@@ -100,19 +97,34 @@ window.addEventListener('load', (event) => {
   });
 });
 
+// アコーディオンUI part1
+window.addEventListener('load', (event) =>   {
+const dts = document.querySelectorAll('dt');
 
+dts.forEach(dt => {
+  dt.addEventListener('click', () => {
+    dt.parentNode.classList.toggle('appear');
+
+    dts.forEach(el => {
+      if (dt !== el) {
+        el.parentNode.classList.remove('appear');
+      }
+    });
+  });
+});
+});
+
+// アコーディオンUI part2
 $(function() {
   $('.accordion-item').click(function(){
 
     //出隠れする部分を変数に格納しておく
-    var $answer = $(this).children('.answer');
+    let $answer = $(this).children('.answer');
 
     //hasClassメソッドで出隠れする部分にopenが存在するか確認
     if ($answer.hasClass('open')) {
 
       //出隠れ部分が出ている場合の処理
-
-      //&ltdiv class="answer open"&gtからopenを消す
       $answer.removeClass('open');
 
       //出ている部分をスライドアップして隠す
@@ -123,8 +135,6 @@ $(function() {
     } else {
 
       //出隠れ部分が隠れている場合の処理
-
-      //&ltdiv class="answer"&gtにopenを追加する
       $answer.addClass('open');
 
       //出す部分をスライドダウンして表示させる
@@ -133,5 +143,29 @@ $(function() {
       //横にある開閉ボタンを-に変える
       $(this).children('span').text('-');
     }
+  });
+});
+
+// タブメニュー
+
+window.addEventListener('load', (event) =>{
+  const menuItems = document.querySelectorAll('.tabmenu li a');   //メニュー項目の取得
+  const contents = document.querySelectorAll('.content');
+  menuItems.forEach(clickedItem => {                              //取得した要素ひとつひとつに対して、イベントを設定
+    clickedItem.addEventListener('click', e => {
+      e.preventDefault();                                         //ページ遷移をしないため
+
+      menuItems.forEach(item => {
+        item.classList.remove('active');
+      })
+      clickedItem.classList.add('active');
+      
+      contents.forEach(content => {
+        content.classList.remove('active');
+      });
+      
+      //クリックされたメニュー項目に対応するcontentの要素を取得
+      document.getElementById(clickedItem.dataset.id).classList.add('active'); 
+    });
   });
 });

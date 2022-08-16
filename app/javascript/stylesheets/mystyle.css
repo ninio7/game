@@ -68,7 +68,7 @@
   padding: 20px 0;
   border-radius: 4px;
   position: absolute;
-  top: 40px;
+  top: 150px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -244,7 +244,7 @@ main {
 /*  font-weight: bold;*/
 /*}*/
 
-
+/*アコーディオンUI part1*/
 
 dt {
   cursor: pointer;
@@ -259,8 +259,8 @@ dt::before {
 dt::after {
   content: '+';
   position: absolute;
-
   right: 16px;
+  transition: transform .3s;
 }
 
 dl > div.appear dt::after {
@@ -277,28 +277,33 @@ dd::before {
 
 dl > div.appear dd {
   display: block;
+  animation: .3s fadeIn;
 }
 
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
 
-ul {
+/*アコーディオンUI part2*/
+li {
   list-style: none;
 }
 
 .accordion-item {
   position: relative;
-  width: 400px;
   border-bottom:1px solid #ccc;
   cursor: pointer;
-  margin-top: 5px;
+  padding: 0 5px;
 }
 .accordion-item:hover {
   background-color: #E6E6E6;
-}
-
-.question {
-  font-size: 18px;
-  margin: 0;
-  padding: 0;
 }
 
 .accordion-item span {
@@ -311,4 +316,43 @@ ul {
 .answer {
   display: none;
   font-size: 12px;
+}
+
+/*タブメニュー*/
+.tabmenu {
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.tabmenu li a {
+  display: inline-block;
+  width: 150px;
+  text-align: center;
+  color: #333;
+  padding: 10px 0;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.tabmenu li a.active {
+  background-color: #C0C0C0;
+  color: #fff;
+}
+
+.tabmenu li a:not(.active):hover {
+  opacity: 0.5;
+  transition: opacity 0.4s
+}
+
+.content.active {
+  background-color: #C0C0C0;
+  min-height: 150px;
+  padding: 12px;
+  color: #fff;
+  display: block;
+}
+
+.content {
+  display: none;
 }
