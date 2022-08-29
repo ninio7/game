@@ -398,3 +398,51 @@ li {
 }
 
 
+/*カレンダー*/
+.calender{
+  border: 2px solid #eee;
+}
+
+.calender thead, tfoot{
+  background: #eee;
+}
+
+.calender th, td {
+  padding: 8px;
+  text-align: center;
+}
+
+.calender tbody td:first-child {
+  color: red;
+}
+
+.calender tbody td:last-child {
+  color: blue;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  user-select: none;
+}
+
+
+/*Bingo*/
+.bingo th, .bingo td {
+  background: pink;
+  border: solid #fff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  padding: 0
+}

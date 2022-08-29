@@ -51,7 +51,7 @@ window.addEventListener('load', (event) => {
 
 // ハンバーガーメニュー
 /*global $*/
-$(function() {
+$(document).on('turbolinks:load', function() {
   $('.menu-trigger').on('click', function(event) {
     $(this).toggleClass('active');
     $('#sp-menu').fadeToggle();
@@ -93,7 +93,7 @@ dts.forEach(dt => {
 });
 
 // アコーディオンUI part2
-$(function() {
+$(document).on('turbolinks:load', function() {
   $('.accordion-item').click(function(){
 
     //出隠れする部分を変数に格納しておく
@@ -165,4 +165,167 @@ $(document).on('turbolinks:load', function() {　//Turbolinksを無効化する�
       $('.tabbox').eq(index).addClass('box-show');
     });
   });
+});
+
+// カレンダー
+window.addEventListener('load', (event) =>{
+
+  const today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth();
+
+  function getCalendarHead(){
+    const dates = [];
+    const d = new Date(year, month, 0).getDate();
+    const n = new Date(year, month, 1).getDate();
+
+    for (let i = 0; i < n; i++){
+      dates.unshift({
+        date: d-i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+    return dates;
+  }
+
+  function getCalendarBody(){
+    const dates = [];
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDate; i++){
+      dates.push({
+        date: i,
+        isToday: false,
+        isDisabled: false,
+      });
+    }
+
+    return dates;
+  }
+
+  function getCalendarTail(){
+    const dates = [];
+    const lastDay = new Date(year, month + 1, 0).getDay();
+
+    for (let i = 1; i < 7 - lastDay; i++){
+      dates.push({
+        date:i,
+        isToday: false,
+        isDisabled: true,
+      });
+    }
+    return dates;
+  }
+
+  function clearCalender(){
+    const tbody = document.querySelector('today');
+    while (tbody.firstChild){
+    tbody.removeChild(tbody.firstChild);
+    }
+  }
+
+  function renderTitle(){
+    const title = `${year}/${String(month +1).padStart(2, '0')}`;
+    document.getElementById('title').textContent = title;
+  }
+
+
+  function renderWeeks(){
+    const dates =[
+    ...getCalendarHead(),
+    ...getCalendarBody(),
+    ...getCalendarTail(),
+    ];
+    const weeks = [];
+    const weeksCount = dates.length / 7;
+
+    for (let i = 0; i < weeksCount; i++){
+       weeks.push(dates.splice(0, 7));
+    }
+
+    weeks.forEach(week => {
+      const tr = document.createElement('tr');
+      week.forEach(date =>{
+          const td = document.createElement('td');
+
+          td.textContent = date.date;
+          if (date.isToday){
+            td.classList.add('today');
+          }
+          if (date.isDisabled){
+            td.classList.add('disabled');
+          }
+          tr.appendChild(td);
+        });
+        document.querySelector('today').appendChild(tr);
+      });
+  }
+
+  function createCalender(){
+    clearCalender();
+    renderTitle();
+    renderWeeks();
+  }
+
+  document.getElementById('prev').addEventListener('click',()=>{
+    month--;
+    if (month < 0){
+      year--;
+      month = 11;
+    }
+    createCalender();
+  });
+
+  document.getElementById('next').addEventListener('click',()=>{
+    month++;
+    if (month > 11){
+      year++;
+      month = 0;
+    }
+    createCalender();
+  });
+
+  createCalender();
+});
+
+
+// ビンゴシート
+window.addEventListener('load', (event) =>{
+  function createColumn(col){
+    const source =[];
+    for (let i = 0; i < 15; i++){
+      source[i] = i + 1 + 15 * col;
+    }
+    const column = [];
+    // ランダムに5つの要素を取り出す
+    for (let i = 0; i < 5; i++){
+      column[i] = source.splice(Math.floor(Math.random() * source.length), 1)[0];
+    }
+    return column;
+  }
+  
+  // すべての列の配列を作る
+  function createColumns(){
+    const columns = [];
+    for (let i = 0; i < 5; i++){
+      columns[i] = createColumn(i);
+    }
+    columns[2][2] = 'Free'
+    return columns;
+  }
+
+  function renderBingo(columns){
+    for (let row =0; row < 5; row++){
+      const tr = document.createElement('tr');
+      for (let col = 0; col < 5; col++){
+        const td = document.createElement('td');
+        td.textContent = columns[col][row];
+        tr.appendChild(td);
+      }
+      document.querySelector('tbody').appendChild(tr);
+    }
+  }
+  const columns = createColumns();
+  renderBingo(columns);
 });
