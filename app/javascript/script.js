@@ -4,7 +4,7 @@ function check() {
   // btn.addEventListener('click', () => {
   //   const results = ['大吉', '中吉', '凶']
   //   btn.textContent = results[Math.floor(Math.random() * results.length)];
-
+    
     btn.addEventListener('click', () => {
     const n = Math.random();
     clearClass(btn)
@@ -169,7 +169,7 @@ $(document).on('turbolinks:load', function() {　//Turbolinksを無効化する�
 
 // カレンダー
 window.addEventListener('load', (event) =>{
-  
+
   const today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth();
@@ -205,6 +205,7 @@ window.addEventListener('load', (event) =>{
       });
     }
 
+    // 今日の日付を太字にする
     if (year === today.getFullYear() && month === today.getMonth()) {
       dates[today.getDate() - 1].isToday = true;
     }
@@ -227,33 +228,39 @@ window.addEventListener('load', (event) =>{
     return dates;
   }
 
+  //createCalendar()するたびにtbodyの中身をクリアにする
   function clearCalendar() {
     const tbody = document.querySelector('tbody');
 
+　  //tbodyの最初の子要素がある限りtbodyからその最初の子要素を削除
     while (tbody.firstChild) {
       tbody.removeChild(tbody.firstChild);
     }
   }
 
   function renderTitle() {
-    const title = `${year}/${String(month + 1).padStart(2, '0')}`;
+    const title = `${year}/${String(month + 1).padStart(2, '0')}`; //padStartは文字列にしか使えない　2桁で表示、それに満たない場合は0の文字列で埋める
+
     document.getElementById('title').textContent = title;
   }
 
   function renderWeeks() {
     const dates = [
-      ...getCalendarHead(),
+      ...getCalendarHead(),  //全ての要素を1つの配列の中で展開させるため、スプレッド構文を使う
       ...getCalendarBody(),
       ...getCalendarTail(),
     ];
+    //週ごとに描画していくので、7日分ごとの配列に分ける
     const weeks = [];
     const weeksCount = dates.length / 7;
 
     for (let i = 0; i < weeksCount; i++) {
+      //datesから7日分のデータを取るには、splice() を使って先頭から7個分を削除しつつ取り出す
       weeks.push(dates.splice(0, 7));
     }
 
-    weeks.forEach(week => {
+
+    weeks.forEach(week => {　　　　　　　　　　　//週ごとに処理、取り出した配列をweekとする
       const tr = document.createElement('tr');
       week.forEach(date => {
         const td = document.createElement('td');
@@ -268,7 +275,7 @@ window.addEventListener('load', (event) =>{
 
         tr.appendChild(td);
       });
-      document.querySelector('tbody').appendChild(tr);
+      document.querySelector('tbody').appendChild(tr);  // tbody を取得したあとに appendChild() を使って tr を追加
     });
   }
 
@@ -308,7 +315,7 @@ window.addEventListener('load', (event) =>{
   createCalendar();
 });
 
-  
+
 
 // // ビンゴシート
 // window.addEventListener('load', (event) =>{
@@ -349,3 +356,76 @@ window.addEventListener('load', (event) =>{
 //   const columns = createColumns();
 //   renderBingo(columns);
 // });
+
+// ストップウォッチ
+window.addEventListener('load', (event) =>{
+  const timer = document.getElementById('timer')
+  const start = document.getElementById('start')
+  const stop = document.getElementById('stop')
+  const reset = document.getElementById('reset')
+
+  let startTime;
+  let timeoutId;
+  let elapsedTime = 0;
+
+  function countUp() {
+    const d = new Date(Date.now() - startTime + elapsedTime);
+    // 値を2桁で表示、その桁に満たなかったら文字列の前を0で埋める※文字列にしか使えない
+    const m = String(d.getMinutes()).padStart(2, '0');
+    const s = String(d.getSeconds()).padStart(2, '0');
+    const ms = String(d.getMilliseconds()).padStart(2, '0');
+    timer.textContent = `${m}:${s}.${ms}`;
+    
+    //setTimeout() を使って10ミリ秒後にこのcountUp()自身を呼び出す
+    timeoutId = setTimeout(() => {      
+      countUp();
+    }, 10);
+  }
+  
+  function setButtonStateInitial() {
+    start.classList.remove('inactive');
+    stop.classList.add('inactive');
+    reset.classList.add('inactive');
+  }
+　
+  function setButtonStateRunning() {
+    start.classList.add('inactive');
+    stop.classList.remove('inactive');
+    reset.classList.add('inactive');
+  }
+
+  function setButtonStateStopped() {
+    start.classList.remove('inactive');
+    stop.classList.add('inactive');
+    reset.classList.remove('inactive');
+  }
+
+  setButtonStateInitial();
+
+  start.addEventListener('click', ()=>{
+    // ボタンにinactiveクラスがついていたらそれぞれの処理をしない
+    if (start.classList.contains('inactive') === true) {
+      return;
+    }
+    setButtonStateRunning();
+    startTime = Date.now();
+    countUp();
+  });
+
+  stop.addEventListener('click', ()=>{
+    setButtonStateStopped();
+    clearTimeout(timeoutId);
+    // タイマーが走っていた時間を全て足し上げる
+    elapsedTime += Date.now() - startTime;
+
+  });
+
+  reset.addEventListener('click', ()=>{
+    if (start.classList.contains('inactive') === true) {
+      return;
+    }
+    setButtonStateInitial();
+    timer.textContent = '00:00:000';
+    elapsedTime = 0;
+  });
+});

@@ -446,3 +446,24 @@ li {
   line-height: 40px;
   padding: 0
 }
+
+#timer {
+  background: #ddd;
+  height: 120px;
+  line-height: 120px;
+  font-size: 40px;
+}
+
+.button {
+  /*width: 80px;*/
+  height: 45px;
+  line-height: 45px;
+  background: #ddd;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+}
+
+.inactive {
+  opacity: 0.5;
+}
