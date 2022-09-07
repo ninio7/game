@@ -467,3 +467,8 @@ li {
 .inactive {
   opacity: 0.5;
 }
+
+/*タイピングゲーム*/
+#target {
+  letter-spacing: .1em;
+}

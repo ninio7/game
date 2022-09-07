@@ -4,7 +4,7 @@ function check() {
   // btn.addEventListener('click', () => {
   //   const results = ['大吉', '中吉', '凶']
   //   btn.textContent = results[Math.floor(Math.random() * results.length)];
-    
+
     btn.addEventListener('click', () => {
     const n = Math.random();
     clearClass(btn)
@@ -358,7 +358,8 @@ window.addEventListener('load', (event) =>{
 // });
 
 // ストップウォッチ
-window.addEventListener('load', (event) =>{
+$(document).on('turbolinks:load', function() {
+// window.addEventListener('load', (event) =>{
   const timer = document.getElementById('timer')
   const start = document.getElementById('start')
   const stop = document.getElementById('stop')
@@ -375,19 +376,19 @@ window.addEventListener('load', (event) =>{
     const s = String(d.getSeconds()).padStart(2, '0');
     const ms = String(d.getMilliseconds()).padStart(2, '0');
     timer.textContent = `${m}:${s}.${ms}`;
-    
+
     //setTimeout() を使って10ミリ秒後にこのcountUp()自身を呼び出す
-    timeoutId = setTimeout(() => {      
+    timeoutId = setTimeout(() => {
       countUp();
     }, 10);
   }
-  
+
   function setButtonStateInitial() {
     start.classList.remove('inactive');
     stop.classList.add('inactive');
     reset.classList.add('inactive');
   }
-　
+
   function setButtonStateRunning() {
     start.classList.add('inactive');
     stop.classList.remove('inactive');
@@ -427,5 +428,63 @@ window.addEventListener('load', (event) =>{
     setButtonStateInitial();
     timer.textContent = '00:00:000';
     elapsedTime = 0;
+  });
+});
+
+
+// タイピングゲーム
+$(document).on('turbolinks:load', function() {
+// window.addEventListener('load', (event) =>{
+  function setWord() {
+    // 重複しないようにsplice()を使って,wordsのランダムな位置から1個ずつ削除しながらwordにセットする
+    // splice() の返り値は結果がひとつであっても配列になるので、配列から取り出すために、添字の0をつける。
+    word = words.splice(Math.floor(Math.random() * words.length), 1)[0];
+    target.textContent = word;
+    loc = 0;
+  }
+
+  const words = [
+    'red',
+    'blue',
+    'pink',
+  ];
+
+  let word;
+  let loc = 0;  // 今何文字目を打っているかを管理する
+  let time;
+  let isPlaying = false;
+  const target = document.getElementById('target');
+
+  document.addEventListener('click', () => {
+    if (isPlaying === true) {
+      return;
+    }
+    
+    isPlaying = true;
+    time = Date.now();
+    setWord();
+  });
+
+  // 押したキーの情報が欲しいので、こちらでイベントオブジェクトを引数で受け取る。
+  document.addEventListener('keydown', e => {
+    // タイプしたキーが合っているかどうかを判定
+    if (e.key !== word[loc]) {
+      return;
+    }
+    loc++;
+    // アンダーバーをlocの個数分繋げた文字列を作る
+    // word.substring(loc) とすると、 loc 番目以降の文字を取り出す
+    target.textContent = '_'.repeat(loc) + word.substring(loc);
+
+    if (loc === word.length) {
+      if (words.length === 0){
+        // 1000 で割って秒単位に→小数点以下を二桁まで表示したいので、toFixed()を使う
+        const elapsedTime = ((Date.now() - time) / 1000).toFixed(2);
+        const result = document.getElementById('result');
+        result.textContent = `Finished! ${elapsedTime} second`;
+        return;
+      }
+      setWord();
+    }
   });
 });
